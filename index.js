@@ -10,18 +10,21 @@ const app = express();
 // configurar cors
 app.use(cors());
 
+//Lectura y parseo del body
+app.use(express.json());
+
+
 // Conexion a la DB
 dbConection();
+
 // console.log(process.env);
 
 
-// Rutas API proyecot
-app.get('/', (req, res) => {
-    res.status(400).json({
-        ok: true,
-        msg: 'Bienvenidos a node'
-    });
-});
+// Rutas API proyecot;
+app.use('/api/usuarios', require('./routes/usuarios.route'));
+app.use('/api/login', require('./routes/auth.route'));
+// app.use('/api/investigadores', require('./routes/investigadores.route'));
+
 
 // Para levantar el servidor
 app.listen(process.env.PORT, () => {
